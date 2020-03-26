@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import devices from "../../../styles/devices";
+
 export const Container = styled.input`
   display: block;
   width: 100%;
@@ -9,4 +11,9 @@ export const Container = styled.input`
   height: 6rem;
   margin-bottom: 2rem;
   font-size: 1.8rem;
+
+  @media ${devices.tabletLandscape} {
+    margin-bottom: 0;
+    margin-right: 2rem;
+  }
 `;

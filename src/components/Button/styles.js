@@ -6,14 +6,17 @@ export const Container = styled.button`
   justify-content: center;
   height: 6rem;
   border-radius: 3rem;
-  border: none;
+  cursor: pointer;
   font-size: 2rem;
   text-transform: uppercase;
   font-weight: bold;
+  max-width: 28rem;
+  width: 100%;
 
   ${props =>
     props.primary &&
     css`
+      border: 2px solid ${props => props.theme.colors.primary};
       color: #fff;
 
       /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff7900+0,ffa14f+100 */
@@ -39,6 +42,7 @@ export const Container = styled.button`
   ${props =>
     props.grey &&
     css`
+      border: 2px solid #e3e3e3;
       color: #000;
 
       /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#efefef+0,e0e0e0+100 */

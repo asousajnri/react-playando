@@ -5,8 +5,9 @@ import { ThemeProvider } from "styled-components";
 import themeOrange from "./styles/theme-orange";
 
 import Header from "./components/Header";
+import Video from "./components/Video";
 
-import { AppContainer } from "./styles";
+import { AppContainer, MainVideos } from "./styles";
 
 function App() {
   return (
@@ -15,6 +16,12 @@ function App() {
         <GlobalStyle />
 
         <Header />
+        <MainVideos>
+          <Video />
+          <Video />
+          <Video />
+          <Video />
+        </MainVideos>
       </AppContainer>
     </ThemeProvider>
   );

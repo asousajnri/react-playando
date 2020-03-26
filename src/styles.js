@@ -9,7 +9,16 @@ export const AppContainer = styled.main`
   margin: 0 auto;
   width: 100%;
   max-width: ${sizes.tabletLandscape};
+  padding-bottom: 10rem;
+`;
 
-  h1 {
+export const MainVideos = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 4rem;
+
+  @media ${devices.tabletLandscape} {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
   }
 `;
