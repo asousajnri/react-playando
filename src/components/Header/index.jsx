@@ -6,7 +6,6 @@ import youtubeOptions from "../../utils/youtubeOptions";
 import { Container } from "./styles";
 
 import Form from "../Form";
-import Button from "../Button";
 
 const Header = ({ dispatch, modal }) => {
   const [textButtonSearch, setTextButtonSearch] = useState("Procurar");

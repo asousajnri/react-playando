@@ -1,9 +1,6 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useReducer } from "react";
 import GlobalStyle from "./styles/global";
 import { ThemeProvider } from "styled-components";
-
-import * as youtubeSearch from "youtube-search";
-import youtubeOptions from "./utils/youtubeOptions";
 
 import themeOrange from "./styles/theme-orange";
 
@@ -17,7 +14,7 @@ import Modal from "./components/Modal";
 import { AppContainer, MainVideos } from "./styles";
 
 function App() {
-  const [{ modal }, dispatch] = useReducer(reducer, initialState);
+  const [{ modal, myVideos }, dispatch] = useReducer(reducer, initialState);
 
   return (
     <ThemeProvider theme={themeOrange}>
@@ -26,6 +23,7 @@ function App() {
 
         <Header dispatch={dispatch} modal={modal} />
         <MainVideos>
+          {console.log("MY VIDEOS", myVideos)}
           <Video />
           <Video />
           <Video />

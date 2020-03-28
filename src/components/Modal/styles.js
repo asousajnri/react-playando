@@ -125,3 +125,18 @@ export const Message = styled.div`
     font-size: 3rem;
   }
 `;
+
+export const Instruction = styled.div`
+  display: block;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  background-color: #cce5ff;
+  color: #004085;
+  font-size: 1.4rem;
+
+  &.warning {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+`;
