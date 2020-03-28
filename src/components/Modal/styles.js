@@ -48,10 +48,6 @@ export const ListVidos = styled.ul`
     &:nth-child(even):hover,
     &.is-selected {
       border-left: 6px solid ${props => props.theme.colors.primary};
-
-      /* h2 {
-        color: #fff;
-      } */
     }
 
     &:nth-child(even) {
@@ -60,20 +56,33 @@ export const ListVidos = styled.ul`
   }
 
   h2 {
+    font-size: 1.6rem;
+    font-weight: 400;
     transition: all 0.3s;
+    max-width: 30rem;
   }
 
   input {
     margin-right: 1rem;
   }
+`;
+
+export const Thumbnail = styled.div`
+  overflow: hidden;
+  border-radius: 5px;
+  width: 5rem;
+  height: 5rem;
+  margin-right: 1.5rem;
+
+  @media ${devices.tabletPortrait} {
+    width: 8rem;
+    height: 8rem;
+  }
 
   img {
-    width: 5rem;
-    margin-right: 1.5rem;
-
-    @media ${devices.tabletPortrait} {
-      width: 8rem;
-    }
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 
@@ -103,5 +112,16 @@ export const Actions = styled.div`
         margin-right: 0;
       }
     }
+  }
+`;
+
+export const Message = styled.div`
+  background: #fff;
+  padding: 4rem 2rem;
+  border-bottom: 1px solid #efeded;
+
+  h2 {
+    text-align: center;
+    font-size: 3rem;
   }
 `;

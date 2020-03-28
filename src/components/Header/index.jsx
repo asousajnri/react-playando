@@ -17,25 +17,28 @@ const Header = ({ dispatch, modal }) => {
     e.preventDefault();
 
     if (textInputSearch) {
-      // alert(modal);
-      dispatch({
-        type: "MODAL"
-      });
+      switch (textButtonSearch) {
+        case "Procurar":
+          await youtubeSearch(textInputSearch, youtubeOptions, function(
+            err,
+            results
+          ) {
+            if (err) return console.log(err);
+
+            dispatch({
+              type: "MODAL",
+              videos: results
+            });
+          });
+          break;
+        case "Adicionar":
+          break;
+        default:
+          return;
+      }
     } else {
       setRequiredInputSearch(true);
     }
-
-    /*
-	await youtubeSearch(textInputSearch, youtubeOptions, function(err, results) {
-      if (err) return console.log(err);
-      
-      localStorage.setItem("states", JSON.stringify({videos: results}));
-    });
-    
-    console.log(localStorage.getItem("states"));
-*/
-
-    // 	console.log("ANTES:", modal);
   };
 
   const handleChangeInputSearch = e => {
@@ -43,7 +46,7 @@ const Header = ({ dispatch, modal }) => {
     setTextInputSearch(e.target.value);
 
     if (e.target.value.includes("https://www.youtube.com/watch?v=")) {
-      setTextButtonSearch("adicionar");
+      setTextButtonSearch("Adicionar");
     } else {
       setTextButtonSearch("Procurar");
     }

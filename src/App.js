@@ -33,7 +33,7 @@ function App() {
         </MainVideos>
       </AppContainer>
 
-      {modal && <Modal />}
+      {modal.visible && <Modal dispatch={dispatch} videos={modal.videos} />}
     </ThemeProvider>
   );
 }

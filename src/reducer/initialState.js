@@ -1,5 +1,7 @@
 module.exports = {
-  modal: false,
-  modalVideos: []
+  modal: {
+    visible: false,
+    videos: []
+  }
   // myVideos: JSON.parse(localStorage.getItem("my-videos") || [])
 };
