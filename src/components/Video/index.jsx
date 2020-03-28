@@ -6,9 +6,9 @@ const Video = () => (
   <Container>
     <iframe
       src="https://www.youtube.com/embed/HhoATZ1Imtw"
-      frameborder="0"
+      frameBorder="0"
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
+      allowFullScreen
     ></iframe>
 
     <Footer>
@@ -18,10 +18,10 @@ const Video = () => (
       </Title>
       <Controls>
         <button>
-          <i class="far fa-pause-circle"></i>
+          <i className="far fa-pause-circle"></i>
         </button>
         <button>
-          <i class="far fa-trash-alt"></i>
+          <i className="far fa-trash-alt"></i>
         </button>
       </Controls>
     </Footer>

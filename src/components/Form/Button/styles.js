@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-import devices from "../../styles/devices";
+import devices from "../../../styles/devices";
 
 export const Container = styled.button`
   display: flex;
