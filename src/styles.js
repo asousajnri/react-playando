@@ -20,6 +20,6 @@ export const MainVideos = styled.div`
   @media ${devices.tabletLandscape} {
     grid-template-columns: 1fr 1fr;
     column-gap: 2rem;
-    padding: 4rem 2rem 0 2rem;
+    padding: 4rem 4rem 0;
   }
 `;

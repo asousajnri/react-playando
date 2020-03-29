@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 import * as youtubeSearch from "youtube-search";
-import youtubeOptions from "../../utils/youtubeOptions";
+import youtubeOptions from "../../config/youtubeOptions";
 
 import { Container } from "./styles";
 
 import Form from "../Form";
 
-const Header = ({ dispatch, modal }) => {
+const Header = ({ dispatch }) => {
   const [textButtonSearch, setTextButtonSearch] = useState("Procurar");
   const [textInputSearch, setTextInputSearch] = useState("");
   const [requiredInputSearch, setRequiredInputSearch] = useState(false);
@@ -31,6 +31,32 @@ const Header = ({ dispatch, modal }) => {
           });
           break;
         case "Adicionar":
+          await youtubeSearch(textInputSearch, youtubeOptions, function(
+            err,
+            results
+          ) {
+            if (err) return console.log(err);
+
+            console.log(results);
+
+            let getCurrentMyVideos = JSON.parse(
+              localStorage.getItem("my-videos")
+            );
+
+            localStorage.setItem(
+              "my-videos",
+              JSON.stringify(
+                getCurrentMyVideos
+                  ? [...getCurrentMyVideos, ...results]
+                  : [...results]
+              )
+            );
+
+            dispatch({
+              type: "ADICIONAR_VIDEO",
+              videos: JSON.parse(localStorage.getItem("my-videos"))
+            });
+          });
           break;
         default:
           return;

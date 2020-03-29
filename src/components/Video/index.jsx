@@ -1,20 +1,32 @@
 import React from "react";
 
-import { Container, Footer, Title, Number, Controls } from "./styles";
+import {
+  Container,
+  Footer,
+  Title,
+  Number,
+  Controls,
+  WrapperVideo
+} from "./styles";
 
-const Video = () => (
+const Video = ({ videoUrl, numberList, title, thumbnail, play }) => (
   <Container>
-    <iframe
-      src="https://www.youtube.com/embed/HhoATZ1Imtw"
-      frameBorder="0"
-      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    ></iframe>
+    <WrapperVideo>
+      <iframe
+        className={play && "playing"}
+        src={videoUrl}
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+
+      <img src={thumbnail} alt={title} />
+    </WrapperVideo>
 
     <Footer>
       <Title>
-        <Number>1</Number>
-        <h2>Conhecendo o Pelando</h2>
+        <Number>{numberList}</Number>
+        <h2>{title}</h2>
       </Title>
       <Controls>
         <button>

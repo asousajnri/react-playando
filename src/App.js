@@ -21,13 +21,24 @@ function App() {
       <AppContainer>
         <GlobalStyle />
 
+        {console.log(myVideos)}
+
         <Header dispatch={dispatch} modal={modal} />
         <MainVideos>
-          {console.log("MY VIDEOS", myVideos)}
-          <Video />
-          <Video />
-          <Video />
-          <Video />
+          {myVideos ? (
+            myVideos.map((video, idx) => (
+              <Video
+                id={`video-${video.id}`}
+                key={video.id}
+                numberList={idx + 1}
+                title={video.title}
+                videoUrl={video.link}
+                thumbnail={video.thumbnails.high.url}
+              />
+            ))
+          ) : (
+            <h2>Você ainda não tem vídeos na sua playlist!</h2>
+          )}
         </MainVideos>
       </AppContainer>
 

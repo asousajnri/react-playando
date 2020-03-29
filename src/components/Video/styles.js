@@ -7,14 +7,6 @@ import devices from "../../styles/devices";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-
-  iframe {
-    height: 30rem;
-
-    @media ${devices.tabletPortrait} {
-      height: 40rem;
-    }
-  }
 `;
 
 export const Footer = styled.footer`
@@ -33,7 +25,9 @@ export const Title = styled.div`
   padding-right: 1rem;
 
   h2 {
-    font-weight: 400;
+    /* font-weight: 400; */
+    font-size: 1.6rem;
+    max-width: 24rem;
   }
 `;
 
@@ -68,5 +62,34 @@ export const Controls = styled.div`
   i {
     color: #fff;
     font-size: 1.6rem;
+  }
+`;
+
+export const WrapperVideo = styled.div`
+  display: flex;
+  position: relative;
+
+  &.playing {
+    iframe {
+      opacity: 1;
+    }
+  }
+
+  iframe {
+    height: 30rem;
+    width: 100%;
+    opacity: 0;
+
+    /* @media ${devices.tabletPortrait} {
+      height: 40rem;
+    } */
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 `;
