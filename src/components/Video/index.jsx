@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import limitText from "../../utils/limitText";
+
 import {
   Container,
   Footer,
@@ -63,7 +65,7 @@ const Video = ({
       <Footer>
         <Title>
           <Number>{numberList}</Number>
-          <h2>{title}</h2>
+          <h2>{limitText(title, 50)}</h2>
         </Title>
         <Controls>
           {!play ? (

@@ -87,7 +87,6 @@ const Header = ({ dispatch }) => {
       type: "ADICIONAR_VIDEO",
       videos: currentMyList
         .filter(video => {
-          // video.title.toLowerCase().indexOf(e.target.value.toLowerCase()) >= 0
           let containsAtLeastOneWord = false;
 
           stringSearch.map(word => {
