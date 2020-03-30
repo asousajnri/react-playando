@@ -73,6 +73,10 @@ export const WrapperVideo = styled.div`
     iframe {
       opacity: 1;
     }
+
+    img {
+      display: none;
+    }
   }
 
   iframe {

@@ -21,15 +21,14 @@ function App() {
       <AppContainer>
         <GlobalStyle />
 
-        {console.log(myVideos)}
-
         <Header dispatch={dispatch} modal={modal} />
         <MainVideos>
           {myVideos ? (
             myVideos.map((video, idx) => (
               <Video
-                id={`video-${video.id}`}
+                dispatch={dispatch}
                 key={video.id}
+                id={video.id}
                 numberList={idx + 1}
                 title={video.title}
                 videoUrl={video.link}

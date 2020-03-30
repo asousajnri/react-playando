@@ -2,8 +2,15 @@ import React from "react";
 
 import { Container } from "./styles";
 
-const Input = ({ value, onChange, placeholder, required, textWarning }) => (
-  <Container className={required && "is-required"}>
+const Input = ({
+  zeroMargin,
+  value,
+  onChange,
+  placeholder,
+  required,
+  textWarning
+}) => (
+  <Container zeroMargin={zeroMargin} className={required && "is-required"}>
     <input
       value={value}
       onChange={e => onChange(e)}

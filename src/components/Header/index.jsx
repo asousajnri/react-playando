@@ -12,6 +12,8 @@ const Header = ({ dispatch }) => {
   const [textInputSearch, setTextInputSearch] = useState("");
   const [requiredInputSearch, setRequiredInputSearch] = useState(false);
 
+  const [listFiltered, setListFiltered] = useState([]);
+
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -77,6 +79,20 @@ const Header = ({ dispatch }) => {
     }
   };
 
+  const handleFilter = e => {
+    let currentMyList = JSON.parse(localStorage.getItem("my-videos"));
+
+    dispatch({
+      type: "ADICIONAR_VIDEO",
+      videos: currentMyList
+        .filter(
+          video =>
+            video.title.toLowerCase().indexOf(e.target.value.toLowerCase()) >= 0
+        )
+        .map(video => video)
+    });
+  };
+
   return (
     <Container>
       <h1>Playando</h1>
@@ -95,11 +111,11 @@ const Header = ({ dispatch }) => {
       </Form.Container>
 
       <Form.Container>
-        <Form.Input placeholder="Palavras-chave" />
-
-        <Form.Button type="submit" grey>
-          Filtrar
-        </Form.Button>
+        <Form.Input
+          zeroMargin={true}
+          placeholder="Filtrar por Palavras-chave"
+          onChange={e => handleFilter(e)}
+        />
       </Form.Container>
     </Container>
   );
