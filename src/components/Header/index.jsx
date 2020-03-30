@@ -3,16 +3,18 @@ import React, { useState } from "react";
 import * as youtubeSearch from "youtube-search";
 import youtubeOptions from "../../config/youtubeOptions";
 
-import { Container } from "./styles";
+import playListStorage from "../../utils/playListStorage";
+import filterSearch from "../../utils/filterSearch";
+import stringToArray from "../../utils/stringToArray";
 
 import Form from "../Form";
+
+import { Container } from "./styles";
 
 const Header = ({ dispatch }) => {
   const [textButtonSearch, setTextButtonSearch] = useState("Procurar");
   const [textInputSearch, setTextInputSearch] = useState("");
   const [requiredInputSearch, setRequiredInputSearch] = useState(false);
-
-  const [listFiltered, setListFiltered] = useState([]);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -39,24 +41,15 @@ const Header = ({ dispatch }) => {
           ) {
             if (err) return console.log(err);
 
-            console.log(results);
-
-            let getCurrentMyVideos = JSON.parse(
-              localStorage.getItem("my-videos")
-            );
-
-            localStorage.setItem(
-              "my-videos",
-              JSON.stringify(
-                getCurrentMyVideos
-                  ? [...getCurrentMyVideos, ...results]
-                  : [...results]
-              )
+            playListStorage.save(
+              playListStorage.playList
+                ? [...playListStorage.playList, ...results]
+                : [...results]
             );
 
             dispatch({
               type: "ADICIONAR_VIDEO",
-              videos: JSON.parse(localStorage.getItem("my-videos"))
+              videos: playListStorage.playList
             });
           });
           break;
@@ -68,36 +61,24 @@ const Header = ({ dispatch }) => {
     }
   };
 
-  const handleChangeInputSearch = e => {
+  const handleInputSearch = ({ target }) => {
     setRequiredInputSearch(false);
-    setTextInputSearch(e.target.value);
+    setTextInputSearch(target.value);
 
-    if (e.target.value.includes("https://www.youtube.com/watch?v=")) {
+    if (target.value.includes("https://www.youtube.com/watch?v=")) {
       setTextButtonSearch("Adicionar");
     } else {
       setTextButtonSearch("Procurar");
     }
   };
 
-  const handleFilter = e => {
-    let currentMyList = JSON.parse(localStorage.getItem("my-videos"));
-    let stringSearch = e.target.value.toLowerCase().split(" ");
-
+  const handleInputFilter = ({ target }) => {
     dispatch({
       type: "ADICIONAR_VIDEO",
-      videos: currentMyList
-        .filter(video => {
-          let containsAtLeastOneWord = false;
-
-          stringSearch.map(word => {
-            if (video.title.toLowerCase().includes(word)) {
-              containsAtLeastOneWord = true;
-            }
-          });
-
-          if (containsAtLeastOneWord) return video;
-        })
-        .map(video => video)
+      videos: filterSearch(
+        stringToArray(target.value),
+        playListStorage.playList
+      )
     });
   };
 
@@ -109,7 +90,7 @@ const Header = ({ dispatch }) => {
         <Form.Input
           required={requiredInputSearch}
           value={textInputSearch}
-          onChange={handleChangeInputSearch}
+          onChange={handleInputSearch}
           placeholder="Link ou título do vídeo"
         />
 
@@ -122,8 +103,9 @@ const Header = ({ dispatch }) => {
         <Form.Input
           zeroMargin={true}
           placeholder="Filtrar por Palavras-chave"
-          onChange={e => handleFilter(e)}
+          onChange={e => handleInputFilter(e)}
         />
+        {/* <Form.Button grey>Filtrar</Form.Button> */}
       </Form.Container>
     </Container>
   );

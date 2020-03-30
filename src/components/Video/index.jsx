@@ -24,16 +24,16 @@ const Video = ({
   const [play, setPlay] = useState(false);
 
   const handleDelete = e => {
-    let currentListVideos = JSON.parse(localStorage.getItem("my-videos"));
+    let currentListVideos = JSON.parse(localStorage.getItem("playList"));
 
     localStorage.setItem(
-      "my-videos",
+      "playList",
       JSON.stringify([...currentListVideos.filter(video => video.id !== id)])
     );
 
     dispatch({
       type: "ADICIONAR_VIDEO",
-      videos: JSON.parse(localStorage.getItem("my-videos"))
+      videos: JSON.parse(localStorage.getItem("playList"))
     });
   };
 

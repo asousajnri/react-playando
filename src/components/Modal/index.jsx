@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+import playListStorage from "../../utils/playListStorage";
+import { modal as modalMsg } from "../../utils/messages";
+import { hasClass, toggleClass } from "../../utils/DOM";
+
 import Button from "../../components/Button";
 
 import {
@@ -13,30 +17,20 @@ import {
 } from "./styles";
 
 const Modal = ({ dispatch, videos }) => {
-  const msgToInstructions = {
-    default: "Selecione o vídeo que você quer adicionar na sua lista!",
-    warning: "Nenhum vídeo selecionado!"
-  };
-
   const [selectedVideos, setSelectedVideos] = useState([]);
 
-  const [warning, setWarning] = useState(false);
-  const [msgInstruction, setMsgInstruction] = useState(
-    msgToInstructions.default
-  );
+  const [modalMessageWarning, setModalMessageWarning] = useState(false);
+  const [modalMessages, setModalMessages] = useState(modalMsg.default);
 
-  const isSelected = elem => elem.classList.contains("is-selected");
-
-  const handleClickVideo = (e, video) => {
+  const handleListItem = (e, video) => {
     e.persist();
+    let isSelected = "is-selected";
 
     let { target: elemClicked } = e;
 
-    if (elemClicked.tagName === "IMG" || elemClicked.tagName === "H2") {
-      elemClicked = e.target.closest("li");
-    }
+    if (elemClicked.tagName !== "LI") elemClicked = e.target.closest("li");
 
-    if (isSelected(elemClicked)) {
+    if (hasClass(elemClicked, isSelected)) {
       setSelectedVideos([
         ...selectedVideos.filter(item => video.id !== item.id)
       ]);
@@ -47,34 +41,29 @@ const Modal = ({ dispatch, videos }) => {
       ]);
     }
 
-    elemClicked.classList.toggle("is-selected");
+    toggleClass(elemClicked, isSelected);
   };
 
   const handleSaveVideos = e => {
     if (selectedVideos.length) {
-      setWarning(false);
-      setMsgInstruction(msgToInstructions.default);
+      setModalMessageWarning(false);
+      setModalMessages(modalMsg.default);
 
-      let getCurrentMyVideos = JSON.parse(localStorage.getItem("my-videos"));
-
-      localStorage.setItem(
-        "my-videos",
-        JSON.stringify(
-          getCurrentMyVideos
-            ? [...getCurrentMyVideos, ...selectedVideos]
-            : [...selectedVideos]
-        )
+      playListStorage.save(
+        playListStorage.playList
+          ? [...playListStorage.playList, ...selectedVideos]
+          : [...selectedVideos]
       );
 
       dispatch({
         type: "ADICIONAR_VIDEO",
-        videos: JSON.parse(localStorage.getItem("my-videos"))
+        videos: playListStorage.playList
       });
 
       dispatch({ type: "MODAL" });
     } else {
-      setWarning(true);
-      setMsgInstruction(msgToInstructions.warning);
+      setModalMessages(modalMsg.warning);
+      setModalMessageWarning(true);
     }
   };
 
@@ -85,7 +74,7 @@ const Modal = ({ dispatch, videos }) => {
           <>
             <ListVidos>
               {videos.map(video => (
-                <li key={video.id} onClick={e => handleClickVideo(e, video)}>
+                <li key={video.id} onClick={e => handleListItem(e, video)}>
                   <Thumbnail>
                     <img src={video.thumbnails.default.url} alt={video.title} />
                   </Thumbnail>
@@ -94,8 +83,8 @@ const Modal = ({ dispatch, videos }) => {
               ))}
             </ListVidos>
 
-            <Instruction className={warning && "warning"}>
-              {msgInstruction}
+            <Instruction className={modalMessageWarning && "warning"}>
+              {modalMessages}
             </Instruction>
           </>
         )}

@@ -1,4 +1,4 @@
-const limitText = (text, limit) => {
+module.exports = (text, limit) => {
   if (text.length > limit) {
     for (let i = limit; i > 0; i--) {
       if (
@@ -13,5 +13,3 @@ const limitText = (text, limit) => {
     return text.substring(0, limit) + "...";
   } else return text;
 };
-
-module.exports = limitText;
