@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import playListStorage from "../../utils/playListStorage";
 import limitText from "../../utils/limitText";
 
 import {
@@ -11,29 +12,18 @@ import {
   WrapperVideo
 } from "./styles";
 
-const Video = ({
-  dispatch,
-  videoUrl,
-  id,
-  numberList,
-  title,
-  thumbnail
-  // play
-}) => {
+const Video = ({ dispatch, videoUrl, id, numberList, title, thumbnail }) => {
   const videoToPlay = useRef(null);
   const [play, setPlay] = useState(false);
 
   const handleDelete = e => {
-    let currentListVideos = JSON.parse(localStorage.getItem("playList"));
-
-    localStorage.setItem(
-      "playList",
-      JSON.stringify([...currentListVideos.filter(video => video.id !== id)])
-    );
+    playListStorage.save([
+      ...playListStorage.playList.filter(video => video.id !== id)
+    ]);
 
     dispatch({
       type: "ADICIONAR_VIDEO",
-      videos: JSON.parse(localStorage.getItem("playList"))
+      videos: playListStorage.playList
     });
   };
 
