@@ -1,5 +1,5 @@
-module.exports = (stringSearch, currentMyList) =>
-  currentMyList
+module.exports = (stringSearch, playList) =>
+  playList
     .filter(video => {
       let containsAtLeastOneWord = false;
 

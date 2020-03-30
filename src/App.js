@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+
 import GlobalStyle from "./styles/global";
 import { ThemeProvider } from "styled-components";
 
@@ -22,6 +23,7 @@ function App() {
         <GlobalStyle />
 
         <Header dispatch={dispatch} modal={modal} />
+        
         <MainVideos>
           {myVideos ? (
             myVideos.map((video, idx) => (
@@ -29,9 +31,9 @@ function App() {
                 dispatch={dispatch}
                 key={video.id}
                 id={video.id}
-                numberList={idx + 1}
+                numbering={idx + 1}
                 title={video.title}
-                videoUrl={video.link}
+                link={video.link}
                 thumbnail={video.thumbnails.high.url}
               />
             ))

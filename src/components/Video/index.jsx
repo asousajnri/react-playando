@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
+import ReactPlayer from 'react-player'
+
 import playListStorage from "../../utils/playListStorage";
 import limitText from "../../utils/limitText";
 
@@ -12,8 +14,9 @@ import {
   WrapperVideo
 } from "./styles";
 
-const Video = ({ dispatch, videoUrl, id, numberList, title, thumbnail }) => {
+const Video = ({ dispatch, link, id, numbering, title, thumbnail }) => {
   const videoToPlay = useRef(null);
+  
   const [play, setPlay] = useState(false);
 
   const handleDelete = e => {
@@ -27,43 +30,26 @@ const Video = ({ dispatch, videoUrl, id, numberList, title, thumbnail }) => {
     });
   };
 
-  const handlePlay = e => {
-    setPlay(!play);
-
-    // videoToPlay.current.setAttribute(
-    //   "src",
-    //   `${videoUrl}?autoplay=${!play ? 1 : 0}`
-    // );
-
-    // console.log(videoToPlay.current);
-  };
-
   return (
     <Container>
       <WrapperVideo className={play && "playing"}>
-        <iframe
-          ref={videoToPlay}
-          src={videoUrl}
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+		<ReactPlayer width="100%" height="30rem" playing={play ? true : false} url={link} />
 
         <img src={thumbnail} alt={title} />
       </WrapperVideo>
 
       <Footer>
         <Title>
-          <Number>{numberList}</Number>
+          <Number>{numbering}</Number>
           <h2>{limitText(title, 50)}</h2>
         </Title>
         <Controls>
           {!play ? (
-            <button onClick={e => handlePlay(e)}>
+            <button onClick={e => setPlay(!play)}>
               <i className="far fa-pause-circle"></i>
             </button>
           ) : (
-            <button onClick={e => handlePlay(e)}>
+            <button onClick={e => setPlay(!play)}>
               <i className="far fa-play-circle"></i>
             </button>
           )}
