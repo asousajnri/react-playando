@@ -8,7 +8,7 @@ const reducer = (state, action) => {
         },
         playList: state.playList
       };
-    case "ADICIONAR_VIDEO":
+    case "PLAY_LIST":
       return {
         playList: action.update,
         modal: state.modal

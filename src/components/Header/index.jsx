@@ -48,9 +48,11 @@ const Header = ({ dispatch }) => {
                 ? [...playListStorage.playList, ...results]
                 : [...results]
             );
+            
+            console.log("HEADER/Adicionar", playListStorage.playList);
 
             dispatch({
-              type: "ADICIONAR_VIDEO",
+              type: "PLAY_LIST",
               update: playListStorage.playList
             });
           });

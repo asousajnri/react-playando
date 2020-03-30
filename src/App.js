@@ -22,6 +22,8 @@ function App() {
     <ThemeProvider theme={themeOrange}>
       <AppContainer>
         <GlobalStyle />
+        
+        {console.log("APP:", playList)}
 
         <Header dispatch={dispatch} modal={modal} />
 

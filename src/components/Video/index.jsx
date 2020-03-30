@@ -32,7 +32,7 @@ const Video = ({
     ]);
 
     dispatch({
-      type: "ADICIONAR_VIDEO",
+      type: "PLAY_LIST",
       update: playListStorage.playList
     });
   };
