@@ -27,6 +27,8 @@ const Header = ({ dispatch }) => {
             results
           ) {
             if (err) return console.log(err);
+            
+            console.log(results);
 
             dispatch({
               type: "MODAL",

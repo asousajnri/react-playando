@@ -3,5 +3,5 @@ module.exports = {
     visible: false,
     videos: []
   },
-  myVideos: JSON.parse(localStorage.getItem("playList")) || null
+  playList: JSON.parse(localStorage.getItem("playList")) || null
 };

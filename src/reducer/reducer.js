@@ -6,11 +6,11 @@ const reducer = (state, action) => {
           visible: !state.modal.visible,
           videos: action.videos
         },
-        myVideos: state.myVideos
+        playList: state.playList
       };
     case "ADICIONAR_VIDEO":
       return {
-        myVideos: action.videos,
+        playList: action.videos,
         modal: state.modal
       };
     default:

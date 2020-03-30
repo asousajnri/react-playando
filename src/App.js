@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 
 import GlobalStyle from "./styles/global";
 import { ThemeProvider } from "styled-components";
@@ -15,7 +15,8 @@ import Modal from "./components/Modal";
 import { AppContainer, MainVideos } from "./styles";
 
 function App() {
-  const [{ modal, myVideos }, dispatch] = useReducer(reducer, initialState);
+  const [{ modal, playList }, dispatch] = useReducer(reducer, initialState);
+  const [activePlay, setActivePlay] = useState(0);
 
   return (
     <ThemeProvider theme={themeOrange}>
@@ -24,14 +25,17 @@ function App() {
 
         <Header dispatch={dispatch} modal={modal} />
         
+
         <MainVideos>
-          {myVideos ? (
-            myVideos.map((video, idx) => (
+          {playList ? (
+            playList.map((video, idx) => (
               <Video
+                activePlay={activePlay}
+                setActivePlay={setActivePlay}
                 dispatch={dispatch}
                 key={video.id}
                 id={video.id}
-                numbering={idx + 1}
+                numbering={idx}
                 title={video.title}
                 link={video.link}
                 thumbnail={video.thumbnails.high.url}
