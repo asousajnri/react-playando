@@ -81,14 +81,23 @@ const Header = ({ dispatch }) => {
 
   const handleFilter = e => {
     let currentMyList = JSON.parse(localStorage.getItem("my-videos"));
+    let stringSearch = e.target.value.toLowerCase().split(" ");
 
     dispatch({
       type: "ADICIONAR_VIDEO",
       videos: currentMyList
-        .filter(
-          video =>
-            video.title.toLowerCase().indexOf(e.target.value.toLowerCase()) >= 0
-        )
+        .filter(video => {
+          // video.title.toLowerCase().indexOf(e.target.value.toLowerCase()) >= 0
+          let containsAtLeastOneWord = false;
+
+          stringSearch.map(word => {
+            if (video.title.toLowerCase().includes(word)) {
+              containsAtLeastOneWord = true;
+            }
+          });
+
+          if (containsAtLeastOneWord) return video;
+        })
         .map(video => video)
     });
   };
