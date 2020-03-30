@@ -32,7 +32,7 @@ const Header = ({ dispatch }) => {
 
             dispatch({
               type: "MODAL",
-              videos: results
+              update: results
             });
           });
           break;
@@ -51,7 +51,7 @@ const Header = ({ dispatch }) => {
 
             dispatch({
               type: "ADICIONAR_VIDEO",
-              videos: playListStorage.playList
+              update: playListStorage.playList
             });
           });
           break;
@@ -74,10 +74,10 @@ const Header = ({ dispatch }) => {
     }
   };
 
-  const handleInputFilter = ({ target }) => {
+  const handleFilter = ({ target }) => {
     dispatch({
       type: "ADICIONAR_VIDEO",
-      videos: filterSearch(
+      update: filterSearch(
         stringToArray(target.value),
         playListStorage.playList
       )
@@ -105,7 +105,7 @@ const Header = ({ dispatch }) => {
         <Form.Input
           zeroMargin={true}
           placeholder="Filtrar por Palavras-chave"
-          onChange={e => handleInputFilter(e)}
+          onChange={e => handleFilter(e)}
         />
         {/* <Form.Button grey>Filtrar</Form.Button> */}
       </Form.Container>

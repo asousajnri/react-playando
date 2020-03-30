@@ -16,7 +16,7 @@ import {
   Instruction
 } from "./styles";
 
-const Modal = ({ dispatch, videos }) => {
+const Modal = ({ dispatch, resultSearch }) => {
   const [selectedVideos, setSelectedVideos] = useState([]);
 
   const [modalMessageWarning, setModalMessageWarning] = useState(false);
@@ -57,7 +57,7 @@ const Modal = ({ dispatch, videos }) => {
 
       dispatch({
         type: "ADICIONAR_VIDEO",
-        videos: playListStorage.playList
+        update: playListStorage.playList
       });
 
       dispatch({ type: "MODAL" });
@@ -70,10 +70,10 @@ const Modal = ({ dispatch, videos }) => {
   return (
     <Container>
       <Box>
-        {videos.length !== 0 && (
+        {resultSearch.length !== 0 && (
           <>
             <ListVidos>
-              {videos.map(video => (
+              {resultSearch.map(video => (
                 <li key={video.id} onClick={e => handleListItem(e, video)}>
                   <Thumbnail>
                     <img src={video.thumbnails.default.url} alt={video.title} />
@@ -89,7 +89,7 @@ const Modal = ({ dispatch, videos }) => {
           </>
         )}
 
-        {!videos.length && (
+        {!resultSearch.length && (
           <Message>
             <h2>Nenhum vídeo encontrado!</h2>
           </Message>

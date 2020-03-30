@@ -4,13 +4,13 @@ const reducer = (state, action) => {
       return {
         modal: {
           visible: !state.modal.visible,
-          videos: action.videos
+          resultSearch: action.update
         },
         playList: state.playList
       };
     case "ADICIONAR_VIDEO":
       return {
-        playList: action.videos,
+        playList: action.update,
         modal: state.modal
       };
     default:

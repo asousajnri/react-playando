@@ -46,7 +46,7 @@ function App() {
         </MainVideos>
       </AppContainer>
 
-      {modal.visible && <Modal dispatch={dispatch} videos={modal.videos} />}
+      {modal.visible && <Modal dispatch={dispatch} resultSearch={modal.resultSearch} />}
     </ThemeProvider>
   );
 }

@@ -1,7 +1,7 @@
 module.exports = {
   modal: {
     visible: false,
-    videos: []
+    resultSearch: []
   },
   playList: JSON.parse(localStorage.getItem("playList")) || null
 };

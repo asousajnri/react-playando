@@ -33,7 +33,7 @@ const Video = ({
 
     dispatch({
       type: "ADICIONAR_VIDEO",
-      videos: playListStorage.playList
+      update: playListStorage.playList
     });
   };
   
