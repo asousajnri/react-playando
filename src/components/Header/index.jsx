@@ -27,8 +27,6 @@ const Header = ({ dispatch }) => {
             results
           ) {
             if (err) return console.log(err);
-            
-            console.log(results);
 
             dispatch({
               type: "MODAL",
@@ -44,16 +42,14 @@ const Header = ({ dispatch }) => {
             if (err) return console.log(err);
 
             playListStorage.save(
-              playListStorage.playList
-                ? [...playListStorage.playList, ...results]
+              playListStorage.get()
+                ? [...playListStorage.get(), ...results]
                 : [...results]
             );
-            
-            console.log("HEADER/Adicionar", playListStorage.playList);
 
             dispatch({
               type: "PLAY_LIST",
-              update: playListStorage.playList
+              update: playListStorage.get()
             });
           });
           break;

@@ -28,12 +28,12 @@ const Video = ({
 
   const handleDelete = e => {
     playListStorage.save([
-      ...playListStorage.playList.filter(video => video.id !== id)
+      ...playListStorage.get().filter(video => video.id !== id)
     ]);
 
     dispatch({
       type: "PLAY_LIST",
-      update: playListStorage.playList
+      update: playListStorage.get()
     });
   };
   

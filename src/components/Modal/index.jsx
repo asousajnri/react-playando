@@ -48,20 +48,17 @@ const Modal = ({ dispatch, resultSearch }) => {
     if (selectedVideos.length) {
       setModalMessageWarning(false);
       setModalMessages(modalMsg.default);
-      
-      console.log("MODAL/handlesaveVideos 1", playListStorage.playList);
 
       playListStorage.save(
-        playListStorage.playList
-          ? [...playListStorage.playList, ...selectedVideos]
+          playListStorage.get()
+          ? [...playListStorage.get(), ...selectedVideos]
           : [...selectedVideos]
       );
       
-      console.log("MODAL/handlesaveVideos 2", playListStorage.playList);
 
       dispatch({
         type: "PLAY_LIST",
-        update: playListStorage.playList
+        update: playListStorage.get()
       });
 
       dispatch({ type: "MODAL" });
