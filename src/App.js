@@ -24,7 +24,6 @@ function App() {
         <GlobalStyle />
 
         <Header dispatch={dispatch} modal={modal} />
-        
 
         <MainVideos>
           {playList ? (
