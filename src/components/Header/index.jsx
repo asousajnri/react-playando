@@ -74,10 +74,10 @@ const Header = ({ dispatch }) => {
 
   const handleFilter = ({ target }) => {
     dispatch({
-      type: "ADICIONAR_VIDEO",
+      type: "PLAY_LIST",
       update: filterSearch(
         stringToArray(target.value),
-        playListStorage.playList
+        playListStorage.get()
       )
     });
   };

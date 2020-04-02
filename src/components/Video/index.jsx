@@ -16,11 +16,7 @@ import {
 
 const Video = ({ 
 	dispatch, 
-	link, 
-	id, 
-	numbering, 
-	title, 
-	thumbnail,
+	infos,
 	activePlay,
 	setActivePlay
 }) => {  
@@ -28,7 +24,7 @@ const Video = ({
 
   const handleDelete = e => {
     playListStorage.save([
-      ...playListStorage.get().filter(video => video.id !== id)
+      ...playListStorage.get().filter(video => video.id !== infos.id)
     ]);
 
     dispatch({
@@ -38,9 +34,9 @@ const Video = ({
   };
   
   const handlePlay = () => {
-	  setActivePlay(numbering);
+	  setActivePlay(infos.numbering);
 	  
-	  if(activePlay === numbering) {
+	  if(activePlay === infos.numbering) {
 		 setPlay(true);
 	  } else {
 		 setPlay(false);
@@ -50,14 +46,14 @@ const Video = ({
   return (
     <Container>
       <WrapperVideo className={play && "playing"}>
-		<ReactPlayer width="100%" height="30rem" playing={play ? true : false} url={link} />
-        <img src={thumbnail} alt={title} />
+		<ReactPlayer width="100%" height="30rem" playing={play ? true : false} url={infos.link} />
+        <img src={infos.thumbnail} alt={infos.title} />
       </WrapperVideo>
 
       <Footer>
         <Title>
-          <Number>{numbering + 1}</Number>
-          <h2>{limitText(title, 50)}</h2>
+          <Number>{infos.numbering + 1}</Number>
+          <h2>{limitText(infos.title, 50)}</h2>
         </Title>
         <Controls>
           {!play ? (
