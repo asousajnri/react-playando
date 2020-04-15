@@ -31,11 +31,11 @@ function App() {
               <Video
                 key={video.id}
               	infos={{
-	              id: video.key,
-	              numbering: idx,
-	              title: video.title,
-	              link: video.link,
-	              thumbnail: video.thumbnails.high.url
+		              id: video.id,
+		              numbering: idx,
+		              title: video.title,
+		              link: video.link,
+		              thumbnail: video.thumbnails.high.url
               	}}
               
                 activePlay={activePlay}

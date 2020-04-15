@@ -23,9 +23,13 @@ const Video = ({
   const [play, setPlay] = useState(false);
 
   const handleDelete = e => {
+	  console.log(infos);
+	  
     playListStorage.save([
       ...playListStorage.get().filter(video => video.id !== infos.id)
     ]);
+    
+    console.log(playListStorage.get());
 
     dispatch({
       type: "PLAY_LIST",
