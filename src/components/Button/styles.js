@@ -24,10 +24,10 @@ export const Container = styled.button`
     opacity: 1;
   }
 
-  ${props =>
+  ${(props) =>
     props.primary &&
     css`
-      border: 2px solid ${props => props.theme.colors.primary};
+      border: 2px solid ${(props) => props.theme.colors.primary};
       color: #fff;
 
       /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff7900+0,ffa14f+100 */
@@ -50,7 +50,7 @@ export const Container = styled.button`
       filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7900', endColorstr='#ffa14f',GradientType=0 ); /* IE6-9 */
     `}
 
-  ${props =>
+  ${(props) =>
     props.grey &&
     css`
       border: 2px solid #e3e3e3;
