@@ -1,8 +1,9 @@
-import React from 'react';
-
+import React, { useState, useContext } from 'react';
 import ReactPlayer from 'react-player';
 
 import limitText from '../../utils/limitText';
+
+import GlobalStatesContext from '../../contexts/GlobalStatesContext';
 
 import {
   Container,
@@ -13,11 +14,17 @@ import {
 const Video = ({
 	infos
 }) => {
+	const [playVideo, setPlayVideo] = useState(false);
+	
+	const states = useContext(GlobalStatesContext);
+	
+	const handlePlayVideo = () => setPlayVideo(!playVideo);
+	
   return (
   	<Container>
 		  <WrapperVideo>
-				<ReactPlayer width='100%' height='30rem' playing={false} url={infos.link} />
-	      <img src={infos.thumbnail} alt={infos.title} />
+				<ReactPlayer width='100%' height='30rem' playing={!playVideo ? true : false} url={infos.link} />
+				{!playVideo && (<img src={infos.thumbnail} alt={infos.title} />)}
 	    </WrapperVideo>
 	    <Footer>
 		    <div className='Title'>
@@ -25,6 +32,21 @@ const Video = ({
 	          {infos.listNumber + 1}
 	        </span>
           <h2>{limitText(infos.title, 50)}</h2>
+        </div>
+        <div className='Controls'>
+          {!playVideo ? (
+            <button onClick={handlePlayVideo}>
+              <i className="far fa-pause-circle"></i>
+            </button>
+          ) : (
+            <button onClick={handlePlayVideo}>
+              <i className="far fa-play-circle"></i>
+            </button>
+          )}
+
+          <button onClick={() => states.playListDelete(infos.id)}>
+            <i className="far fa-trash-alt"></i>
+          </button>
         </div>
 	    </Footer>
   	</Container>

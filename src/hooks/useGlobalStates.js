@@ -9,13 +9,20 @@ const useGlobalStates = () => {
   const modalOpen = () => setModalIsOpen(true);
   const modalClose = () => setModalIsOpen(false);
   
-  const addPlaylist = (newVideos) => {
+  const playListAdd = (newVideos) => {
 	  let videos = playList ? [...playList, ...newVideos] : [...newVideos];
 	  
 	  statesPersist.playlist(videos);
 	  setPlaylist(videos);
   }
-
+  
+  const playListDelete = (idVideo) => {
+	  let videos = [...playList.filter(video => video.id !== idVideo)]
+	  
+	  setPlaylist(videos);
+	  statesPersist.playlist(videos);
+  };
+  
   return {
     modalIsOpen,
     modalOpen,
@@ -23,7 +30,8 @@ const useGlobalStates = () => {
     modalVideos,
     setModalVideos,
     playList,
-    addPlaylist,
+    playListAdd,
+    playListDelete,
   };
 };
 

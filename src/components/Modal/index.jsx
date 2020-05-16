@@ -19,7 +19,7 @@ const Modal = () => {
 	const states = useContext(GlobalStatesContext);	
 	
 	const handleSaveInPlaylist = () => {		
-		states.addPlaylist(selectedVideos);
+		states.playListAdd(selectedVideos);
 		
 		states.modalClose();
 	};
