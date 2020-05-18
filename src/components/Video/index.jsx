@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, memo } from 'react';
 import ReactPlayer from 'react-player';
 
 import limitText from '../../utils/limitText';
@@ -18,23 +18,38 @@ const Video = ({
 	
 	const states = useContext(GlobalStatesContext);
 	
-	const handlePlayVideo = () => setPlayVideo(!playVideo);
+	useEffect(() => {		
+		if(states.videoIsPlaying === infos.listNumber) {
+			setPlayVideo(true);
+		} else {
+			setPlayVideo(false);
+		}
+	}, [states.videoIsPlaying]);
+	
+	const handlePlayVideo = () => {
+		states.setVideoIsPlaying(infos.listNumber);
+		setPlayVideo(!playVideo);	
+	}
 	
   return (
   	<Container>
 		  <WrapperVideo>
-				<ReactPlayer width='100%' height='30rem' playing={!playVideo ? true : false} url={infos.link} />
-				{!playVideo && (<img src={infos.thumbnail} alt={infos.title} />)}
+				<ReactPlayer 
+					width='100%' 
+					height='30rem' 
+					playing={playVideo ? true : false}
+					url={infos.link} 
+				/>
 	    </WrapperVideo>
 	    <Footer>
 		    <div className='Title'>
           <span className='ListNumber'>
-	          {infos.listNumber + 1}
+	          {infos.listNumber}
 	        </span>
           <h2>{limitText(infos.title, 50)}</h2>
         </div>
         <div className='Controls'>
-          {!playVideo ? (
+          {playVideo ? (
             <button onClick={handlePlayVideo}>
               <i className="far fa-pause-circle"></i>
             </button>
@@ -53,4 +68,4 @@ const Video = ({
   )
 };
 
-export default Video;
+export default memo(Video);

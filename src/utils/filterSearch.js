@@ -1,14 +1,20 @@
-module.exports = (stringSearch, playList) =>
-  playList
-    .filter(video => {
-      let containsAtLeastOneWord = false;
+import stringToArray from './stringToArray';
 
-      stringSearch.map(word => {
-        if (video.title.toLowerCase().includes(word)) {
-          containsAtLeastOneWord = true;
-        }
-      });
+const filterSearch = (valueToSearch, playlist) => {
+	let stringSearch = stringToArray(valueToSearch);
+	
+	return playlist.filter(video => {
+    let containsAtLeastOneWord = false;
 
-      if (containsAtLeastOneWord) return video;
-    })
-    .map(video => video);
+    stringSearch.map(word => {
+      if (video.title.toLowerCase().includes(word)) {
+        containsAtLeastOneWord = true;
+      }
+    });
+
+    if (containsAtLeastOneWord) return video;
+  }).map(video => video);
+};
+
+export default filterSearch;
+  

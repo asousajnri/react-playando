@@ -8,6 +8,8 @@ export const Container = styled.div`
   width: 100%;
   margin-bottom: 2rem;
   position: relative;
+  display: flex;
+  align-items: center;
 
   &.is-required {
     margin-bottom: 4rem;
@@ -48,24 +50,47 @@ export const Container = styled.div`
     border-radius: 3rem;
     height: 6rem;
   }
+`;
 
-  span {
+export const LogInput = styled.div`
     opacity: 0;
-    bottom: -2rem;
-    transition: all 0.3s;
-
-    display: flex;
     position: absolute;
-    left: 0;
-    height: 5rem;
-    background-color: #fff3cd;
-    border-color: #ffeeba;
-    color: #856404;
-    width: 100%;
-    align-items: flex-end;
-    padding: 0 3rem 0.75rem 3rem;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    font-size: 1.2rem;
-  }
+		z-index: 10;
+    background: #cce5ff;
+    border: 1px solid #b8daff;
+    display: flex;
+    padding: 1rem 1rem 1rem 2rem;
+    border-radius: 3rem;
+    right: 2%;
+    color: #004085;
+    font-size: 1.3rem;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    
+    &.is-active {
+	    opacity: .5;
+	    
+	    &:hover {
+		    opacity: 1;
+		  }
+	  }
+    
+    p {
+	    margin-right: 1rem;
+    }
+    
+    span {
+	    border: 1px solid #b8daff;
+	    cursor: pointer;
+	    display: flex;
+	    width: 2rem;
+	    height: 2rem;
+	    background: transparent;
+	    border-radius: 50%;
+	    align-items: center;
+	    justify-content: center;
+	    color: #004085;
+	    font-weight: bold;
+    }
 `;

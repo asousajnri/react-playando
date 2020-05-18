@@ -1,8 +1,5 @@
 const statesPersist = (() => {
-	const playlist = (value) => {
-		localStorage.setItem('playlist', JSON.stringify(value));
-	};
-	
+	const playlist = (value) => localStorage.setItem('playlist', JSON.stringify(value));
 	const getPlaylist = () => JSON.parse(localStorage.getItem('playlist'));
 	
 	return {

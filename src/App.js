@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import useGlobalStates from "./hooks/useGlobalStates";
+import useGlobalStates from './hooks/useGlobalStates';
 
-import GlobalStatesContext from "./contexts/GlobalStatesContext";
+import GlobalStatesContext from './contexts/GlobalStatesContext';
 
-import GlobalStyle from "./styles/global";
-import { ThemeProvider } from "styled-components";
-import themeOrange from "./styles/theme-orange";
+import GlobalStyle from './styles/global';
+import { ThemeProvider } from 'styled-components';
+import themeOrange from './styles/theme-orange';
 
-import Header from "./components/Header";
-import Modal from "./components/Modal";
+import Header from './components/Header';
+import Modal from './components/Modal';
 import Video from './components/Video';
 
-import { AppContainer, MainVideos } from "./styles";
+import { AppContainer, MainVideos } from './styles';
 
 function App() {
   const states = useGlobalStates();
@@ -31,7 +31,7 @@ function App() {
 					        infos={{
 						        id: video.id,
 						        title: video.title,
-						        listNumber: idx,
+						        listNumber: idx + 1,
 						        link: video.link,
 						        thumbnail: video.thumbnails.high.url
 					        }}

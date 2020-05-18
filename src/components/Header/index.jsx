@@ -1,22 +1,23 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useState } from 'react';
 
-import GlobalStatesContext from "../../contexts/GlobalStatesContext";
+import GlobalStatesContext from '../../contexts/GlobalStatesContext';
 
-import youtubeSearch from "../../utils/youtubeSearch";
+import youtubeSearch from '../../utils/youtubeSearch';
 
-import Form from "../Form";
-import Button from "../Button";
+import filterSearch from '../../utils/filterSearch';
 
-import { Container } from "./styles";
+import Form from '../Form';
+import Button from '../Button';
+
+import { Container } from './styles';
 
 const Header = ({ globalStates }) => {
   const inputRefSearch = useRef(null);
   const inputRefFilter = useRef(null);
   
-  const { 
-	  modalOpen, 
-	  setModalVideos, 
-	} = useContext(GlobalStatesContext);
+  const [logFilter, setLogFilter] = useState(false);
+  
+  const states = useContext(GlobalStatesContext);
 
   const handleSubmit = async (e) => {
 	  e.preventDefault();
@@ -24,11 +25,22 @@ const Header = ({ globalStates }) => {
     const modal = youtubeSearch(inputRefSearch.current.value);
     
 		modal((videos) => {
-			modalOpen();
-			setModalVideos(videos);
+			states.modalOpen();
+			states.setModalVideos(videos);
 		});
   };
-
+  
+  const handleFilter = (e) => {
+	  e.preventDefault();
+	  
+	  let playlist = states.statesPersist.getPlaylist();	  
+	  states.playListFiltered(filterSearch(inputRefFilter.current.value, playlist));
+  };
+  
+  const handleFilterDelete = (event) => {
+	  
+  };
+  
   return (
     <Container>
       <h1>Playando</h1>
@@ -36,17 +48,23 @@ const Header = ({ globalStates }) => {
       <Form.Container onSubmit={handleSubmit}>
         <Form.Input
           refInput={inputRefSearch}
-          placeholder="Qual vídeo deseja pesquisar?"
+          placeholder='Qual vídeo deseja pesquisar?'
         />
-        <Button type="submit" text="Buscar" primary />
+        <Button type='submit' text='Buscar' primary />
       </Form.Container>
 
-      <Form.Container>
+      <Form.Container onSubmit={handleFilter}>
         <Form.Input
+        	logPopup={{
+	        	text: 'Limpar pesquisa',
+	        	type: 'alert',
+	        	isShow: true,
+	        	clickClose: () => setLogFilter(!logFilter),
+        	}}
           refInput={inputRefFilter}
-          placeholder="Buscar em seus videos"
+          placeholder='Buscar em seus videos'
         />
-        <Button type="submit" text="Filtrar" grey />
+        <Button type='submit' text='Filtrar' grey />
       </Form.Container>
     </Container>
   );
