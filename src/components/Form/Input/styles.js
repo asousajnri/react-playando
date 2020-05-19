@@ -29,16 +29,6 @@ export const Container = styled.div`
     margin-right: 2rem;
   }
 
-  ${props =>
-    props.zeroMargin &&
-    css`
-      margin: 0;
-
-      @media ${devices.tabletLandscape} {
-        margin: 0;
-      }
-    `}
-
   input {
     position: relative;
     z-index: 2;
@@ -56,20 +46,51 @@ export const LogInput = styled.div`
     opacity: 0;
     position: absolute;
 		z-index: 10;
-    background: #cce5ff;
-    border: 1px solid #b8daff;
+    
+    border: 1px solid transparent;
     display: flex;
-    padding: 1rem 1rem 1rem 2rem;
+    padding: 0 0.7rem 0 2rem;
+    height: 4.1rem;
     border-radius: 3rem;
     right: 2%;
-    color: #004085;
     font-size: 1.3rem;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
+    pointer-events: none;
+    
+    ${props => props.type === 'default' && css`
+    	background: #cce5ff;
+    	color: #004085;
+    	border-color: #b8daff;
+    	
+    	i {
+	    	color: #004085;
+    	}
+    `}
+    
+    ${props => props.type === 'alert' && css`
+    	color: #856404;
+	    background-color: #fff3cd;
+	    border-color: #ffeeba;    	
+    	i {
+	    	color: #856404;
+    	}
+    `}
+    
+    ${props => props.type === 'danger' && css`
+    	color: #721c24;
+	    background-color: #f8d7da;
+	    border-color: #f5c6cb;
+    	
+    	i {
+	    	color: #721c24;
+    	}
+    `}
     
     &.is-active {
 	    opacity: .5;
+	    pointer-events: all;
 	    
 	    &:hover {
 		    opacity: 1;
@@ -77,20 +98,12 @@ export const LogInput = styled.div`
 	  }
     
     p {
-	    margin-right: 1rem;
+	    text-align: center;
     }
     
-    span {
-	    border: 1px solid #b8daff;
+    i {
+	    font-size: 2.5rem;
+	    margin-left: 1rem;
 	    cursor: pointer;
-	    display: flex;
-	    width: 2rem;
-	    height: 2rem;
-	    background: transparent;
-	    border-radius: 50%;
-	    align-items: center;
-	    justify-content: center;
-	    color: #004085;
-	    font-weight: bold;
     }
 `;

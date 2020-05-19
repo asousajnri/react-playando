@@ -28,6 +28,10 @@ const useGlobalStates = () => {
 	  setPlaylist([...value]);
   };
   
+  const playListRecovery = () => {
+	  setPlaylist(statesPersist.getPlaylist() || []);
+  };
+  
   return {
     modalIsOpen,
     modalOpen,
@@ -37,9 +41,10 @@ const useGlobalStates = () => {
     playList,
     playListAdd,
     playListDelete,
+    playListRecovery,
+    playListFiltered,
     videoIsPlaying,
     setVideoIsPlaying,
-    playListFiltered,
     statesPersist,
   };
 };

@@ -8,19 +8,20 @@ const Input = ({
 	onChange,
 	onKeyPress,
 	onKeyDown,
-	logPopup,
+	logFieldPopup,
 }) => {
   return (
     <Container>
-	    {logPopup && (
+	    {logFieldPopup && (
 		   	<LogInput
-			  	className={logPopup.isShow && 'is-active'} 	
+			   	type={logFieldPopup.type}
+			  	className={logFieldPopup.isShow && 'is-active'} 	
 				>
 					<p>
-			    	{logPopup.text}
+			    	{logFieldPopup.text}
 		    	</p>
 		    	
-		    	{logPopup.type === 'alert' && (<span onClick={logPopup.clickClose}>x</span>)}
+		    	<i onClick={logFieldPopup.onClick} className="far fa-times-circle"></i>
 		  	</LogInput>
 		  )}
       <input 

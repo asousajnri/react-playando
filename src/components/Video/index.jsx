@@ -24,7 +24,7 @@ const Video = ({
 		} else {
 			setPlayVideo(false);
 		}
-	}, [states.videoIsPlaying]);
+	}, [states.videoIsPlaying, infos.listNumber]);
 	
 	const handlePlayVideo = () => {
 		states.setVideoIsPlaying(infos.listNumber);
