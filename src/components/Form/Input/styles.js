@@ -43,13 +43,12 @@ export const Container = styled.div`
 `;
 
 export const LogInput = styled.div`
-    opacity: 0;
     position: absolute;
 		z-index: 10;
-    
+    opacity: 0;
     border: 1px solid transparent;
     display: flex;
-    padding: 0 0.7rem 0 2rem;
+    padding: 0 1rem;
     height: 4.1rem;
     border-radius: 3rem;
     right: 2%;
@@ -88,13 +87,19 @@ export const LogInput = styled.div`
     	}
     `}
     
+    ${props => props.type === 'success' && css`
+    	color: #155724;
+	    background-color: #d4edda;
+	    border-color: #c3e6cb;
+    	
+    	i {
+	    	color: #155724;
+    	}
+    `}
+    
     &.is-active {
-	    opacity: .5;
+	    opacity: 1;
 	    pointer-events: all;
-	    
-	    &:hover {
-		    opacity: 1;
-		  }
 	  }
     
     p {

@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useState } from 'react';
 
 import GlobalStatesContext from '../../contexts/GlobalStatesContext';
+import useNotifyFields from '../../hooks/useNotifyFields';
 
 import youtubeSearch from '../../utils/youtubeSearch';
 
@@ -16,29 +17,9 @@ const Header = ({ globalStates }) => {
   const inputRefSearch = useRef(null);
   const inputRefFilter = useRef(null);
   
-  // POPUP LOG FILTER
-  const [
-  	logFieldFilter, 
-  	setLogFieldFilter
-  ] = useState(false);
+  const notifyFieldSearch = useNotifyFields();
+  const notifyFieldFilter = useNotifyFields();
   
-  // POPUP LOG SEARCH
-  const [
-  	logFieldSearch, 
-  	setLogFieldSearch
-  ] = useState(false);
-  
-  const [
-  	logFieldSearchText, 
-  	setLogFieldSearchText
-  ] = useState('Campo não pode ser vázio!')
-  
-  const [
-  	logFieldSearchType, 
-  	setLogFieldSearchType
-  ] = useState('default');
-  
-  // 
   const [
   	textButtonSearch, 
   	setTextButtonSearch
@@ -53,13 +34,12 @@ const Header = ({ globalStates }) => {
 	  const inputValue = inputRefSearch.current.value;
 	  
 	  if(inputValue === '') {
-		  setLogFieldSearch(!logFieldSearch);
-		  setLogFieldSearchType('alert');
+		  notifyFieldSearch.setValues('alert', 'Campo não poder estar vázio!')
 		  
 		  return;
 	  }
 	  
-	  const inputValeuIsLink = inputValue.includes('https://www.youtube.com/watch?v=') ? true : false;
+	  const inputValueIsLink = inputValue.includes('https://www.youtube.com/watch?v=') ? true : false;
 	  
     const resultSearchFromYoutube = youtubeSearch(inputValue);
     
@@ -67,15 +47,14 @@ const Header = ({ globalStates }) => {
 			console.log(videos);
 			
 			if(videos.length === 0) {
-				setLogFieldSearch(!logFieldSearch);
-				setLogFieldSearchType('danger');
-				setLogFieldSearchText('Nenhum resultado encontrado!');
+				notifyFieldSearch.setValues('danger', 'Nenhum vídeo encontrado!')
 				
 				return;
 			};
 			
-			if(inputValeuIsLink) {
-				states.setModalVideos(videos);
+			if(inputValueIsLink) {
+				notifyFieldSearch.setValues('success', 'Video adicionado com sucesso!')
+				states.playListAdd(videos);
 			} else {
 				states.modalOpen();
 				states.setModalVideos(videos);
@@ -90,14 +69,14 @@ const Header = ({ globalStates }) => {
 	  
 	  if(!inputValue) return;
 	  
-	  setLogFieldFilter(!logFieldFilter);
+	  notifyFieldFilter.setValues('alert', 'Limpar pesquisa!');
 	  
 	  let playlist = states.statesPersist.getPlaylist();	  
-	  states.playListFiltered(filterSearch(inputRefFilter.current.value, playlist));
+	  states.playListFiltered(filterSearch(inputValue, playlist));
   };
   
   const handleReseteSearch = () => {
-	  setLogFieldFilter(!logFieldFilter);
+	  notifyFieldFilter.visibleOn();
 	  states.playListRecovery();
   };
   
@@ -107,11 +86,11 @@ const Header = ({ globalStates }) => {
 
       <Form.Container onSubmit={handleSearch}>
         <Form.Input
-        	logFieldPopup={{
-	        	text: logFieldSearchText,
-	        	type: logFieldSearchType,
-	        	isShow: logFieldSearch,
-	        	onClick: () => setLogFieldSearch(!logFieldSearch),
+        	notifyField={{
+	        	text: notifyFieldSearch.text,
+	        	type: notifyFieldSearch.type,
+	        	visible: notifyFieldSearch.visible,
+	        	onClick: () => notifyFieldSearch.visibleOff(),
         	}}
           refInput={inputRefSearch}
           placeholder='Qual vídeo deseja pesquisar?'
@@ -121,10 +100,10 @@ const Header = ({ globalStates }) => {
 
       <Form.Container onSubmit={handleFilter}>
         <Form.Input
-        	logFieldPopup={{
-	        	text: 'Limpar a pesquisa!',
-	        	type: 'default',
-	        	isShow: logFieldFilter,
+        	notifyField={{
+	        	text: notifyFieldFilter.text,
+	        	type: notifyFieldFilter.type,
+	        	visible: notifyFieldFilter.visible,
 	        	onClick: () => handleReseteSearch(),
         	}}
           refInput={inputRefFilter}
