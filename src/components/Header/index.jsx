@@ -6,6 +6,7 @@ import useNotifyFields from '../../hooks/useNotifyFields';
 import youtubeSearch from '../../utils/youtubeSearch';
 
 import filterSearch from '../../utils/filterSearch';
+import searchIsLink from '../../utils/searchIsLink';
 
 import Form from '../Form';
 import Button from '../Button';
@@ -27,6 +28,14 @@ const Header = ({ globalStates }) => {
   
   // GLOBAL STATES
   const states = useContext(GlobalStatesContext);
+  
+  const handleChangeSearch = (e) => {
+	  if(searchIsLink(e.target.value)) {
+		  setTextButtonSearch('Adicionar');
+	  } else {
+		  setTextButtonSearch('Buscar');
+	  }
+  }
 
   const handleSearch = (e) => {
 	  e.preventDefault();
@@ -39,12 +48,10 @@ const Header = ({ globalStates }) => {
 		  return;
 	  }
 	  
-	  const inputValueIsLink = inputValue.includes('https://www.youtube.com/watch?v=') ? true : false;
-	  
     const resultSearchFromYoutube = youtubeSearch(inputValue);
     
-		resultSearchFromYoutube((videos) => {
-			console.log(videos);
+		resultSearchFromYoutube((videos) => {			
+			const inputValueIsLink = searchIsLink(inputValue) ? true : false;
 			
 			if(videos.length === 0) {
 				notifyFieldSearch.setValues('danger', 'Nenhum vídeo encontrado!')
@@ -75,7 +82,7 @@ const Header = ({ globalStates }) => {
 	  states.playListFiltered(filterSearch(inputValue, playlist));
   };
   
-  const handleReseteSearch = () => {
+  const handleResetePlayList = () => {
 	  notifyFieldFilter.visibleOn();
 	  states.playListRecovery();
   };
@@ -86,6 +93,7 @@ const Header = ({ globalStates }) => {
 
       <Form.Container onSubmit={handleSearch}>
         <Form.Input
+        	onChange={e => handleChangeSearch(e)}
         	notifyField={{
 	        	text: notifyFieldSearch.text,
 	        	type: notifyFieldSearch.type,
@@ -104,7 +112,7 @@ const Header = ({ globalStates }) => {
 	        	text: notifyFieldFilter.text,
 	        	type: notifyFieldFilter.type,
 	        	visible: notifyFieldFilter.visible,
-	        	onClick: () => handleReseteSearch(),
+	        	onClick: () => handleResetePlayList(),
         	}}
           refInput={inputRefFilter}
           placeholder='Buscar em seus videos'
