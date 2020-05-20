@@ -14,7 +14,6 @@ import Button from '../Button';
 import { Container } from './styles';
 
 const Header = ({ globalStates }) => {
-	// INPUTS REF
   const inputRefSearch = useRef(null);
   const inputRefFilter = useRef(null);
   
@@ -26,7 +25,6 @@ const Header = ({ globalStates }) => {
   	setTextButtonSearch
   ] = useState('Buscar');
   
-  // GLOBAL STATES
   const states = useContext(GlobalStatesContext);
   
   const handleChangeSearch = (e) => {
