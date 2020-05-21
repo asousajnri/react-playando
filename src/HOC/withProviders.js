@@ -11,8 +11,6 @@ import themeOrange from '../styles/theme-orange';
 const withProviders = (WrappedComponent) => {
 	const WithProviders = () => {
 		const states = useGlobalStates();
-
-        console.log(states);
 		
 		return (
 			<ThemeProvider theme={themeOrange}>
